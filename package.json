@@ -1,0 +1,23 @@
+{
+  "name": "css-containment-benchmark",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "serve",
+    "benchmark": "npm run benchmark:build && npm run benchmark:chrome && npm run benchmark:firefox && npm run benchmark:safari && npm run benchmark:report",
+    "benchmark:build": "node ./bin/build-tachometer-json.js",
+    "benchmark:chrome": "tach --config chrome.tachometer.json --json-file chrome.results.json",
+    "benchmark:firefox": "tach --config firefox.tachometer.json --json-file firefox.results.json",
+    "benchmark:safari": "tach --config safari.tachometer.json --json-file safari.results.json",
+    "benchmark:report": "node ./bin/format-results.js"
+  },
+  "volta": {
+    "node": "16.17.1",
+    "npm": "8.19.2"
+  },
+  "dependencies": {
+    "median": "^0.0.2",
+    "serve": "^14.0.1",
+    "tachometer": "^0.7.0"
+  }
+}
