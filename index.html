@@ -63,7 +63,7 @@ input {
 </head>
 <body>
   <h1>CSS Containment Example
-    <select id="items" onchange="runTests();">
+    <select id="items">
       <option value="10">10 items</option>
       <option value="100">100 items</option>
       <option value="500">500 items</option>
@@ -166,8 +166,6 @@ input {
 
 
     function runTests() {
-      setup();
-
       let style = document.createElement("style");
       style.id = "new-style";
       style.appendChild(document.createTextNode(`.item { contain: ${containment}; }`));
@@ -176,7 +174,16 @@ input {
       run();
     }
 
-    document.addEventListener('DOMContentLoaded', runTests)
+    setup();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Don't meausre the first layout; only measure the subsequent ones
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          runTests()
+        })
+      })
+    })
 
   </script>
 </body>
